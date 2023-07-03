@@ -1,0 +1,67 @@
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    // GET 요청 보내기
+    axios.get('https://www.zerocho.com/api/get')
+        .then((result) => {
+            console.log(result);
+            console.log(result.data);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+
+    // 위 코드를 async/await 방식으로 변경
+    (async () => {
+        try {
+            const result = await axios.get('https://www.zerocho.com/api/get');
+            console.log(result);
+            console.log(result.data); // {}
+        } catch (error) {
+            console.error(error);   
+        }
+    })();
+
+    // POST 방식의 요청 보내기
+    (async () => {
+        try {
+            const result = await axios.post('https://www.zerocho.com/api/post/json', {
+                name: 'zerocho',
+                birth: 1994,
+            });
+            console.log(result);
+            console.log(result.data); // {}
+        } catch (error) {
+            console.error(error);   
+        }
+    })();
+
+    // axios로 폼 데이터를 서버에 보내기
+    (async () => {
+        try {
+            const formData = new FormData();
+            formData.append('name', 'zerocho');
+            formData.append('birth', 1994);
+            const result = await axios.post('https://www.zerocho.com/api/post/formdata', formData);
+            console.log(result);
+            console.log(result.data);
+        } catch (error) {
+            console.error(error);
+        }
+    })();
+
+    // 한글 주소 부분만 encodeURIComponent 메서드로 감싼다
+    (async () => {
+        try {
+            const result = await axios.get(`https://www.zerocho.com/api/search/${encodeURIComponent('노드')}`);
+            console.log(result);
+            console.log(result.data); // {}
+        } catch (error) {
+            console.error(error);
+        }
+    })();
+
+    // 받는 쪽에서 decodeURIComponent 사용
+    decodeURIComponent('%EB%85%B8%EB%93%9C'); // 노드
+    
+
+</script>
